@@ -1,0 +1,71 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Profile Viewer</title>
+    <link rel="stylesheet" href="{% static 'css/profile.css'%}">
+</head>
+<body style="background-color:white">
+    <div id='welcome'>Welcome!</div>
+    <div id='desc'>{{name}}</div>
+    <div id='image'><img id='im1' src= '/media/{{dp}}'  height="15%" width="20%" alt='picture'></div>
+    <div id='scroll'><a href='#div1' style="text-decoration:none">Scroll down</a></div>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <div id='div1' class='per-details'>
+        <div class='def'>Personal Information</div><br>
+        <div class='details'><pre>DOB  :              {{dob}}<br/>Mother's Name  :    {{mother_name}}<br/>From :              {{from}}<br/>Currently Living :  {{current}}<br/>School :            {{school}}<br/>University :        {{university}}</pre>
+        </div>
+    </div>
+    <div class='per-details'>
+        <div class='def'>Description</div>
+        <div class='details'>
+            {%for i in desc%}
+            {{i}}<br/>
+            {%endfor%}
+        </div>
+    </div>
+    <div class='per-details'>
+        <div class='def'>Academic Result</div>
+        <div class='details'>
+            <pre>X<sup>th</sup>  :              {{x}}%<br/>XII<sup>th</sup>  :            {{xii}}%<br/></pre>
+        </div>
+    </div>
+    <div class='per-details'>
+        <div class='def'>Hobbies</div>
+        <div class='details'>
+            <dl style="list-style-type: none">
+                <dt>Likes
+                <dd>
+                    {%for i in hobbies%}
+                    {{i}}<br/>
+                    {%endfor%}
+
+                </dd>
+                </dt>
+            </dl>
+        </div>
+    </div>
+    <div class='per-details'>
+        <div class='def'>Skills</div>
+        <div class='details'>
+            {%for i in skills%}
+            {{i}}<br/>
+            {%endfor%}
+        </div>
+    </div>
+    <footer id='footer'>
+        Created By Tarun<br/>
+        G.L.A. University , Mathura , U.P. , India
+        <hr width='80%' text-align="center">
+        <div id='logo'>
+            <a href='https://www.facebook.com/tarun.raghav.9887' target='_blank'><img src='{%static  "images/facebook-circled.png" %}' height='55px' alt='facebook' width='55px'></a>
+            <a href='https://www.hackerrank.com/tarun_raghav226' target='_blank'><img src='{%static "images/HackerRank_logo.svg" %}' height='50px' alt='hackerrank' width='50px'></a>
+            <a href='https://www.sololearn.com/Profile/10815847' target='_blank'><img src='{%static "images/sololearn.png" %}' height='55px' alt='sololearn' width='55px' ></a>
+        </div>
+    </footer>
+
+</body>
+</html>

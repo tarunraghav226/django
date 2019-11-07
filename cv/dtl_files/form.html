@@ -1,0 +1,38 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+    <title>Document</title>
+</head>
+<body style="background-color:#DF744A">
+    <div id="form">Form</div>
+    <div id="content">
+        <form method='POST'>
+            {%csrf_token%}
+            <pre>
+            <span class='item'>Name :  </span><input class="input" type="text" name="name" placeholder="Name" required><br/>
+            <span class='item'>DOB :  </span><input class="input" type="date" name="dob" placeholder="DOB" required><br/>
+            <span class='item'>Mother's Name :  </span><input class="input" type="text" name="Mother_Name" placeholder="Mother Name" required><br/>
+            <span class='item'>From :  </span><input class="input" type="text" name="from" placeholder="From" required><br/>
+            <span class='item'>Currently Living :  </span><input class="input" type="text" name="current" placeholder="Current" required><br/>
+            <span class='item'>School :  </span><input class="input" type="text" name="school" placeholder="School" required><br/>
+            <span class='item'>University :  </span><input class="input" type="text" name="university" placeholder="University" required><br/>
+            <span class='item'>X<sup>th</sup> % :  </span><input class="input" type="number" name="x" placeholder="x result" max=100 min=0 required><br/>
+            <span class='item'>XII<sup>th</sup>% :  </span><input class="input" type="number" name="xii" placeholder="xii result" max="100" min="0" required><br/>
+            <span class='item'>Hobbies : </span><br/>
+            <textarea class="input" name="hobbies"  placeholder="hobbies" rows="4" required></textarea><br/>
+            <span class='item'>Skills : </span><br/>
+            <textarea class="input" name="skills"  placeholder="Skills" rows="4" required></textarea>
+            <span class='item'>Description :  </span><br/>
+            <textarea class="input" name="desc" placeholder="description" rows="4" required></textarea><br/>
+            <span class='item'>Display Picture :  </span><input class="input" type="file" name="dp" placeholder="your image" required><br/>
+        </pre>
+        <button formaction="profile" id="button">Submit</button>
+        </form>
+    </div>
+</body>
+</html>
