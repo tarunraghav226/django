@@ -30,8 +30,3 @@ def saveProfile(request):
     person.hobbies=person.hobbies.split('\n')
     person.skills=person.skills.split('\n')
     return render(request,'profile.html',{'person':person})
-
-def handle_uploaded_file(f):  
-    with open('cv/media/pics/'+f.name, 'wb+') as destination:  
-        for chunk in f.chunks():  
-            destination.write(chunk)  
