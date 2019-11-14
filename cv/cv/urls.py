@@ -23,5 +23,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.show),
     path('form/',views.form),
-    path('form/profile',views.profile)
+    path('form/profile',views.saveProfile)
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

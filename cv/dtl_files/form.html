@@ -11,12 +11,12 @@
 <body style="background-color:#DF744A">
     <div id="form">Form</div>
     <div id="content">
-        <form method='POST'>
+        <form method='POST' enctype="multipart/form-data">
             {%csrf_token%}
             <pre>
             <span class='item'>Name :  </span><input class="input" type="text" name="name" placeholder="Name" required><br/>
             <span class='item'>DOB :  </span><input class="input" type="date" name="dob" placeholder="DOB" required><br/>
-            <span class='item'>Mother's Name :  </span><input class="input" type="text" name="Mother_Name" placeholder="Mother Name" required><br/>
+            <span class='item'>Mother's Name :  </span><input class="input" type="text" name="mot_name" placeholder="Mother Name" required><br/>
             <span class='item'>From :  </span><input class="input" type="text" name="from" placeholder="From" required><br/>
             <span class='item'>Currently Living :  </span><input class="input" type="text" name="current" placeholder="Current" required><br/>
             <span class='item'>School :  </span><input class="input" type="text" name="school" placeholder="School" required><br/>
