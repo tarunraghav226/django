@@ -15,6 +15,7 @@ class Item(models.Model):
 
 class User(models.Model):
     userID=models.AutoField(primary_key=True)
+    username=models.CharField(max_length=50)
     firstName=models.CharField(max_length=15)
     lastName=models.CharField(max_length=15)
     email=models.EmailField(max_length=30,unique=True)

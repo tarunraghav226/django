@@ -41,26 +41,51 @@ def show(request):
     return render(request,'home.html',info)
 
 def check(request):
-    return render(request,'login-register.html')
+    print('in check')
+    return render(request,'login-register.html',{'user':''})
 
 def login(request):
-    username='not a valid user'
-    
     if request.method=='POST':
-        pass
+        userName='not a valid user'
+        try:
+            user=User.objects.get(username=request.POST.get('userName'))
+            if user.password==request.POST.get('password'):
+                userName=user.username
+                return render(request,'login-register.html',{'user':userName})
+            else:
+                return render(request,'login-register.html',{'user':userName})
+        except:
+            return render(request,'login-register.html',{'user':userName})
 
     return render(request,'base.html')
 
 def register(request):
-    return render(request,'register.html') 
+    return render(request,'register.html',{'user':''}) 
+
+def checkEmail(userEmail):
+    try:
+        obj=User.objects.get(email=userEmail)
+        s=obj.email
+        return False
+    except:
+        return True
 
 def validate(request):
+    username=''
     if request.method=='POST':
         user=User()
+        user.username=user
         user.firstName=request.POST.get('first_name')
         user.lastName=request.POST.get('last_name')
         user.email=request.POST.get('email')
         user.password=request.POST.get('password')
-        user.save()
-        return redirect('/login/')
-    return render(request,'/register.html/')
+        if checkEmail(user.email):
+            user.save()
+            userName=user
+            user.username=str(userName)
+            user.save()
+        else:
+            flag=0
+            return render(request,'register.html',{'flag':flag})
+        return render(request,'login-register.html',{'user':userName})
+    return render(request,'/login.html/')

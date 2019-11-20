@@ -1,17 +1,29 @@
 {%extends 'nav-bar.html'%}
 
 {%block form%}
-<div class="login">
+{% if user != '' and user != 'not a valid user' %}
+    <span style="color: white;position:relative; left:220px;top:100px">Your user name is <b>{{user}}</b></span>
+    <div class="login" style="postion:relative;left:500px">
+{%elif user == 'not a valid user'%}
+    <span style="color: white;position:relative; left:220px;top:120px">Register if you have not done yet.</span>
+    <div class="login" style="postion:relative;left:500px;">
+{%else%}
+        <div class="login">    
+{%endif%}
     <div class="form">
         Already A User!<br>
-        Login And Start Using Services
+        Login And Start Using Services<br>
         <form  method="POST" >{%csrf_token%}<br>
-            <input class="container" type="text" name="userName" placeholder="User Name"><br>
-            <input class="container" type="password" name="password" placeholder="Password"><br>
+            <input class="container" type="text" name="userName" placeholder="User Name" required><br>
+            <input class="container" type="password" name="password" placeholder="Password" required><br>
             <button class="submit" formaction="/login/">Submit</button>
         </form>
+        {%if user == 'not a valid user'%}
+        <span style="color: red;font-size: 10px;position: relative;top:-150px;">Either username or password is wrong</span>
+        {%endif%}
     </div>
 </div>
+{%if user == '' %}
 <div class="login">
     <div class="form">
         Register Now For Free<br>
@@ -21,4 +33,5 @@
         </form>
     </div>
 </div>
+{%endif%}
 {%endblock%}
