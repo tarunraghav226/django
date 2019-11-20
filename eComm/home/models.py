@@ -12,3 +12,14 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+class User(models.Model):
+    userID=models.AutoField(primary_key=True)
+    firstName=models.CharField(max_length=15)
+    lastName=models.CharField(max_length=15)
+    email=models.EmailField(max_length=30,unique=True)
+    password=models.CharField(max_length=30)
+    def __str__(self):
+        return self.firstName+self.lastName+str(self.userID)
+    class meta:
+        name='user info'

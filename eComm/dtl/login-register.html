@@ -1,0 +1,24 @@
+{%extends 'nav-bar.html'%}
+
+{%block form%}
+<div class="login">
+    <div class="form">
+        Already A User!<br>
+        Login And Start Using Services
+        <form  method="POST" >{%csrf_token%}<br>
+            <input class="container" type="text" name="userName" placeholder="User Name"><br>
+            <input class="container" type="password" name="password" placeholder="Password"><br>
+            <button class="submit" formaction="/login/">Submit</button>
+        </form>
+    </div>
+</div>
+<div class="login">
+    <div class="form">
+        Register Now For Free<br>
+        And Avail All Our<br> Services
+        <form  method="POST" >{%csrf_token%}<br>
+            <button class="submit" formaction="/register/">Click Here</button>
+        </form>
+    </div>
+</div>
+{%endblock%}
