@@ -1,10 +1,14 @@
 {%extends 'nav-bar.html'%}
 
 {%block form%}
-{% if user != '' and user != 'not a valid user' %}
-    <span style="color: white;position:relative; left:220px;top:100px">Your user name is <b>{{user}}</b></span>
+{% if userName != '' and userName != 'not a valid user' %}
+    {%if loggedInUser != ''%}
     <div class="login" style="postion:relative;left:500px">
-{%elif user == 'not a valid user'%}
+    {%else%}
+    <span style="color: white;position:relative; left:-160px;top:100px">Your user name is <b>{{userName}}</b></span>
+    <div class="login">
+    {%endif%}
+{%elif userName == 'not a valid user'%}
     <span style="color: white;position:relative; left:220px;top:120px">Register if you have not done yet.</span>
     <div class="login" style="postion:relative;left:500px;">
 {%else%}
@@ -18,12 +22,12 @@
             <input class="container" type="password" name="password" placeholder="Password" required><br>
             <button class="submit" formaction="/login/">Submit</button>
         </form>
-        {%if user == 'not a valid user'%}
+        {%if loggedInUser == 'not a valid user'%}
         <span style="color: red;font-size: 10px;position: relative;top:-150px;">Either username or password is wrong</span>
         {%endif%}
     </div>
 </div>
-{%if user == '' %}
+{%if loggedInUser == '' %}
 <div class="login">
     <div class="form">
         Register Now For Free<br>

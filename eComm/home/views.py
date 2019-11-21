@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from home.models import Item,User
 from math import ceil
-from django.shortcuts import redirect
 # Create your views here.
+
 #function for creating items in slider
 def slider(data,category=None):
     carousel=[]
@@ -36,31 +36,33 @@ def slider(data,category=None):
 def show(request):
     data=Item.objects.all()
     carousel=slider(data,category=('Electronics','Clothing'))
-    info={'data':carousel,'slides':range(1,len(carousel[0]))}
+    info={'data':carousel,'slides':range(1,len(carousel[0])),'loggedInUser':request.session.get('loggedInUser','')}
     print(len(carousel),carousel)
+    print(len(info),request.session.get('loggedInUser'))
     return render(request,'home.html',info)
 
 def check(request):
     print('in check')
-    return render(request,'login-register.html',{'user':''})
+    return render(request,'login-register.html',{'loggedInUser':'','userName':''})
 
 def login(request):
     if request.method=='POST':
-        userName='not a valid user'
+        loggedInUser='not a valid user'
         try:
             user=User.objects.get(username=request.POST.get('userName'))
             if user.password==request.POST.get('password'):
                 userName=user.username
-                return render(request,'login-register.html',{'user':userName})
+                request.session['loggedInUser']=user.username
+                return redirect('/')
             else:
                 return render(request,'login-register.html',{'user':userName})
         except:
-            return render(request,'login-register.html',{'user':userName})
+            return render(request,'login-register.html',{'loggedInUser':loggedInUser})
 
     return render(request,'base.html')
 
 def register(request):
-    return render(request,'register.html',{'user':''}) 
+    return render(request,'register.html',{'loggedInUser':request.session.get('loggedInUser','')}) 
 
 def checkEmail(userEmail):
     try:
@@ -71,7 +73,8 @@ def checkEmail(userEmail):
         return True
 
 def validate(request):
-    username=''
+    userName=''
+    loggedInUser=''
     if request.method=='POST':
         user=User()
         user.username=user
@@ -87,5 +90,13 @@ def validate(request):
         else:
             flag=0
             return render(request,'register.html',{'flag':flag})
-        return render(request,'login-register.html',{'user':userName})
+        userName=user.username
+        return render(request,'login-register.html',{'userName':userName,'loggedInUser':''})
     return render(request,'/login.html/')
+
+def logout(request):
+    try: 
+        del request.session['loggedInUser']
+    except:
+        pass
+    return redirect('/')
