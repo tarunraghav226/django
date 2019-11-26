@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Item(models.Model):
+    productID=models.AutoField(primary_key=True)
     name=models.CharField(max_length=15)
     logo=models.ImageField(upload_to='itemPhoto')
     desc=models.TextField()

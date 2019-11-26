@@ -17,6 +17,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='item',
             name='productID',
-            field=models.AutoField(default=1, primary_key=True, serialize=False),
+            field=models.AutoField( primary_key=True, serialize=False),
         ),
     ]

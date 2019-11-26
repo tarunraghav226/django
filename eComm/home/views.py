@@ -100,3 +100,6 @@ def logout(request):
     except:
         pass
     return redirect('/')
+
+def viewProduct(request):
+    return render(request,'viewProduct.html',{'loggedInUser':request.session.get('loggedInUser','')})
