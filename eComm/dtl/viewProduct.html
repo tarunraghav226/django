@@ -1,13 +1,19 @@
 {% extends 'nav-bar.html' %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
-</html>
+{%block links%}
+    <style>
+        span .offer{background-color:rgb(110, 37, 37);border-radius:5px;padding:5px;color:white;position: absolute;left:17%;bottom:85%}
+    </style>
+    <title>{{product.name}}</title>
+{%endblock%}
+{%block other%}
+<img src="/media/{{product.logo}}" width="300px" height="300px" style="margin-left:20px;margin-top:20px">
+<span style="font-size:80px;margin-left:15px;position: relative;top: -80px;text-decoration: solid underline;">{{product.name}}</span>
+<span>
+    {%if product.offer == True%}
+        <div class='offer'>offer</div>
+    {%endif%}
+</span>
+    <span>{{product.price}}</span>
+    <span>{{product.desc}}</span>
+    <button>Buy Now</button>
+{%endblock%}

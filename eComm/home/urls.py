@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+from django.conf.urls import url
 
 
 urlpatterns=[
@@ -9,5 +10,5 @@ urlpatterns=[
     path('register/',views.register),
     path('validate/',views.validate),
     path('logout/',views.logout),
-    path('viewProduct/',views.viewProduct)
+    url(r'^viewProduct(?P<product_id>[0-9]{1,2})/',views.viewProduct)
 ]

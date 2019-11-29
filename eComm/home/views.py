@@ -101,5 +101,7 @@ def logout(request):
         pass
     return redirect('/')
 
-def viewProduct(request):
-    return render(request,'viewProduct.html',{'loggedInUser':request.session.get('loggedInUser','')})
+def viewProduct(request,product_id):
+    item=Item.objects.filter(productID=product_id)
+    print(item[0].logo)
+    return render(request,'viewProduct.html',{'loggedInUser':request.session.get('loggedInUser',''),'product':item[0]})
