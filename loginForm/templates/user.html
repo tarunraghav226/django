@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Status</title>
+</head>
+<body>
+{% if username == 'not_authenticated' %}
+    <h1>You are not logged in...</h1>
+{% else %}
+    <h1>Hello ...</h1><h3>{{ username }}</h3>
+{% endif %}
+</body>
+</html>
