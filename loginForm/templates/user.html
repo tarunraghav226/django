@@ -7,6 +7,8 @@
 <body>
 {% if username == 'not_authenticated' %}
     <h1>You are not logged in...</h1>
+{% elif username == 'not_registered' %}
+    <h1>You are not registered. Register please...</h1>
 {% else %}
     <h1>Hello ...</h1><h3>{{ username }}</h3>
 {% endif %}
