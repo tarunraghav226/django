@@ -14,3 +14,8 @@ class LoginForm(forms.Form):
         if not user:
             raise forms.ValidationError('User not registered')
         return user
+
+
+class RegisterUser(forms.Form):
+    username = forms.CharField(max_length=50)
+    password = forms.CharField(max_length=50, widget=forms.PasswordInput())
