@@ -12,8 +12,14 @@ def login_request(request):
 
 
 def login_validate(request):
+    username = 'not_authenticated'
     if request.method == 'POST':
         form = LoginForm(request.POST)
-        if form.is_valid():
-            print(form.cleaned_data['username'])
-            return render(request, 'user.html', {'username': form.cleaned_data['username']})
+        try:
+            if form.is_valid():
+                return render(request, 'user.html', {'username': form.cleaned_data['username']})
+        except:
+            return render(request, 'user.html', {'username': 'not_registered'})
+
+    else:
+        return render(request, 'user.html', {'username': username})
