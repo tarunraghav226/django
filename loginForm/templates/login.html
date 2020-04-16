@@ -6,7 +6,7 @@
     <title>Login</title>
 </head>
 <body>
-<form method="POST" action="/login_validate/">
+<form method="POST" action="/login_validate/" name="login_details">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="input">
