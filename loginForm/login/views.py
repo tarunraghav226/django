@@ -1,6 +1,6 @@
 # Create your views here.
 from django.contrib import messages
-from django.contrib.auth import logout
+from django.contrib.auth import logout, authenticate, login
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 
@@ -22,15 +22,22 @@ def login_validate(request):
 
     if request.method == 'POST':
         form = LoginForm(request.POST)
-        # try:
         if form.is_valid():
             username = form.cleaned_data['username']
-            return render(request, 'user.html', {'username': username})
-        # except:
-        #   pass
+            password = form.cleaned_data['password']
+
+            user = authenticate(username=username, password=password)
+
+            if user:
+                login(request, user)
+                return redirect('/')
+            else:
+                messages.info(request, 'Register Yourself')
+                return redirect('/register_user/')
+        else:
+            return render(request, 'login.html', {'form': form})
     else:
         return render(request, 'user.html', {'username': 'not_authenticated'})
-    return render(request, 'user.html', {'username': 'not_registered'})
 
 
 def register_request(request):
