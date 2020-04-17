@@ -1,8 +1,9 @@
 # Create your views here.
-from django.shortcuts import render
+from django.contrib import messages
+from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
 
-from login.login_form import LoginForm, RegisterUser
-from .models import UserDB
+from login.forms import LoginForm, RegisterUser
 
 
 def home_page(request):
@@ -38,12 +39,15 @@ def register_request(request):
     return render(request, 'register.html', context)
 
 
+@csrf_exempt
 def register(request):
     if request.method == 'POST':
         form = RegisterUser(request.POST)
         if form.is_valid():
-            new_user = UserDB(username=form.cleaned_data['username'], password=form.cleaned_data['password'])
-            new_user.save()
-            return render(request, 'user.html', {'username': form.cleaned_data['username']})
+            form.save()
+            messages.success(request, 'Account Created Successfully')
+            return redirect('/register_user/')
         else:
-            return render(request, 'register.html', {'status': 'Fill form correctly'})
+            return render(request, 'register.html', {'form': form})
+    else:
+        return render(request, 'register.html', {'status': 'Fill form correctly'})
