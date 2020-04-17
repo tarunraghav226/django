@@ -5,6 +5,11 @@
     <title>Registration Form</title>
 </head>
 <body>
+{% if messages %}
+    {% for message in messages %}
+        {{ message }}
+    {% endfor %}
+{% endif %}
 <form method="POST" action="/register/">
     {% csrf_token %}
     {{ form.as_p }}
