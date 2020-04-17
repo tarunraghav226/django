@@ -1,5 +1,6 @@
 # Create your views here.
 from django.contrib import messages
+from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 
@@ -51,3 +52,8 @@ def register(request):
             return render(request, 'register.html', {'form': form})
     else:
         return render(request, 'register.html', {'status': 'Fill form correctly'})
+
+
+def logout_request(request):
+    logout(request)
+    return redirect('/')
