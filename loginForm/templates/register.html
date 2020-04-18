@@ -10,9 +10,10 @@
         {{ message }}
     {% endfor %}
 {% endif %}
-<form method="POST" action="/register/">
+<form method="POST" action="/register/" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+    {{ user_form.as_p }}
+    {{ image_form.as_p }}
     <input type="submit" value="Input" name="Submit">
 </form>
 </body>
