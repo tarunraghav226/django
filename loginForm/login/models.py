@@ -18,3 +18,11 @@ class UserImage(models.Model):
 
     def __str__(self):
         return self.username
+
+
+class LikedPhotos(models.Model):
+    user_liked = models.CharField(max_length=100)
+    image_link = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.user_liked
