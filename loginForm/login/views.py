@@ -1,10 +1,12 @@
 # Create your views here.
 from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 
 from login.forms import LoginForm, RegisterUser, UserImageForm
+from login.models import UserImage, LikedPhotos
 
 
 def home_page(request):
@@ -18,6 +20,7 @@ def login_request(request):
     return render(request, 'login.html', context)
 
 
+@csrf_exempt
 def login_validate(request):
 
     if request.method == 'POST':
@@ -27,10 +30,16 @@ def login_validate(request):
             password = form.cleaned_data['password']
 
             user = authenticate(username=username, password=password)
+            print(user)
 
             if user:
+                all_user = UserImage.objects.filter(username=form.cleaned_data['username'])
+                image_link = ''
+                for i in all_user:
+                    image_link += str(i.contest_photo)
+                likes = LikedPhotos.objects.filter(image_link=image_link)
                 login(request, user)
-                return redirect('/')
+                return render(request, 'home_page.html', {'image_link': image_link, 'number_of_likes': likes.count()})
             else:
                 messages.info(request, 'Register Yourself')
                 return redirect('/register_user/')
@@ -70,3 +79,19 @@ def register(request):
 def logout_request(request):
     logout(request)
     return redirect('/')
+
+
+@login_required
+def like(requset, image_link, username):
+    has_user_already_liked = LikedPhotos.objects.filter(user_liked=username)
+    likes = LikedPhotos.objects.filter(image_link=image_link)
+
+    if not has_user_already_liked:
+        like = LikedPhotos()
+        like.image_link = image_link
+        like.user_liked = username
+        like.save()
+    else:
+        messages.info(requset, 'You already liked a photo you can\'t vote again')
+
+    return render(requset, 'home_page.html', {'image_link': image_link, 'number_of_likes': likes.count()})
