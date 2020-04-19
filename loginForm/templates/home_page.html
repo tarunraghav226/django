@@ -8,6 +8,12 @@
 {% if user.is_authenticated %}
     {{ user.username }}
     <button><a href="/logout_request/"> logout</a></button>
+    <img src="/media/{{ image_link }}" width="300px" height="300px">
+    <button><a href="/like/{{ image_link }}/{{ user.username }}">Like image</a></button>
+    <button>Likes count = {{ number_of_likes }}</button>
+    {% for message in messages %}
+        <h1>{{ message }}</h1>
+    {% endfor %}
 {% else %}
     <button><a href="/login_request/"> login</a></button>
     <button><a href="/register_user/"> register</a></button>
