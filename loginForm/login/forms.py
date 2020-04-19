@@ -41,10 +41,10 @@ class RegisterUser(forms.Form):
 
     def save(self, commit=True):
 
-        user = User()
-        user.username = self.cleaned_data['username']
-        user.email = self.cleaned_data['email']
-        user.password = self.cleaned_data['password1']
+        user = User.objects.create_user(self.cleaned_data['username'],
+                                        self.cleaned_data['email'],
+                                        self.cleaned_data['password1'])
+        print(user.password)
 
         if commit:
             user.save()
