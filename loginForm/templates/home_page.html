@@ -17,6 +17,9 @@
 {% else %}
     <button><a href="/login_request/"> login</a></button>
     <button><a href="/register_user/"> register</a></button>
+    {% for message in messages %}
+        <h1>{{ message }}</h1>
+    {% endfor %}
 {% endif %}
 </body>
 </html>
