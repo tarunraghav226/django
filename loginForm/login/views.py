@@ -1,12 +1,16 @@
 # Create your views here.
+import random
+
 from django.contrib import messages
 from django.contrib.auth import logout, authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 
 from login.forms import LoginForm, RegisterUser, UserImageForm
 from login.models import UserImage, LikedPhotos
+from loginForm import settings
 
 
 def home_page(request):
@@ -30,7 +34,6 @@ def login_validate(request):
             password = form.cleaned_data['password']
 
             user = authenticate(username=username, password=password)
-            print(user)
 
             if user:
                 all_user = UserImage.objects.filter(username=form.cleaned_data['username'])
@@ -68,6 +71,14 @@ def register(request):
             user = user_form.save()
             image_form.save(username=user.username)
 
+            # mail details
+            CONFIRMATION_SUBJECT = 'Account Confirmation Link'
+            CONFIRMATION_MESSAGE = 'Dear ' + user.username + ',\n We are happy that you registered to our contest.' + \
+                                   'Please click on the below link to activate your account\n' + generate_confirmation_link(
+                user.username)
+            send_mail(CONFIRMATION_SUBJECT, CONFIRMATION_MESSAGE, settings.EMAIL_HOST,
+                      [user_form.cleaned_data['email']], True)
+
             messages.success(request, 'Account Created Successfully')
             return redirect('/register_user/')
         else:
@@ -95,3 +106,19 @@ def like(requset, image_link, username):
         messages.info(requset, 'You already liked a photo you can\'t vote again')
 
     return render(requset, 'home_page.html', {'image_link': image_link, 'number_of_likes': likes.count()})
+
+
+def generate_confirmation_link(username):
+    s = 'aAbZcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890'
+    link = '127.0.0.1:8000/confirm/' + username + '/'
+    i = 20
+    while i > 0:
+        a = random.randint(0, len(s) - 1)
+        link += s[a]
+        i -= 1
+    return link
+
+
+def confirm(request, username, token):
+    messages.info(request, 'Account confirmed ' + username)
+    return redirect('/')
