@@ -30,4 +30,5 @@ urlpatterns = [
     path('register/', views.register),
                   path('logout_request/', views.logout_request),
                   url(r'^like\/(?P<image_link>[-.\/\w]+)\/(?P<username>[-.\w]+)', views.like),
+                  url(r'^confirm\/(?P<username>[\w]+)\/(?P<token>[\w]+)', views.confirm)
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
